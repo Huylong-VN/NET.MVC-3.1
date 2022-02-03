@@ -1,0 +1,124 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+   <div class="hero-wrap hero-bread" style="background-image: url('/client/images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index">Home</a></span> <span>Cart</span></p>
+            <h1 class="mb-0 bread">My Cart @ViewBag.total</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>Product Image</th>
+						        <th>Product name</th>
+						        <th>Price</th>
+						        <th>Quantity</th>
+						        <th>Total</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+							@if(ViewBag.cart != null)
+							{
+									@foreach(var data in ViewBag.cart){
+									   <tr class="text-center">
+						        <td class="product-remove"><a asp-action='Remove' asp-route-Id='@data.Product.Id'><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url(/store-image/@data.Product.Image);"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3>@data.Product.Name</h3>
+						        	<p>@data.Product.Description</p>
+						        </td>
+						        
+						        <td class="price">$@data.Product.SalePrice</td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input readonly type="text" name="quantity" class="quantity form-control input-number" value="@data.Quantity" min="1" max="100">
+					          	</div>
+					          </td>
+
+						        <td class="total">@(data.Quantity* int.Parse(data.Product.SalePrice))</td>
+						      </tr><!-- END TR-->
+								}
+							}
+							else
+							{
+								<tr>
+									<th>No Item Here</th>
+								</tr>
+							}
+
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>Coupon Code</h3>
+    					<p>Enter your coupon code if you have one</p>
+  						<form asp-action="AddVoucher" class="info">
+						  <div class="form-group">
+	              			<label for="">Coupon code</label>
+							<input name="code" type="text" class="form-control text-left px-3" placeholder="">
+							<small style='color:red'>@TempData["error"]</small>
+						  </div>
+    						<p><button type='submit' class="btn btn-primary py-3 px-4">Apply Coupon</button></p>
+						</form>
+    				</div>
+    			</div>
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    				</div>
+    			</div>
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>Cart Totals</h3>
+						@{
+							if (TempData["Voucher"] == null) TempData["Voucher"] = 0;
+						}
+    					<p class="d-flex">
+    						<span>Subtotal</span>
+    						<span>$@ViewBag.total</span>
+    					</p>
+    					<p class="d-flex">
+    						<span>Discount</span>
+    						<span>$@TempData["Voucher"]</span>
+    					</p>
+    					<hr>
+    					<p class="d-flex total-price">
+    						<span>Total @TempData["Voucher"]</span>
+						@{
+							var totalValue=0;
+							if(ViewBag.total!=null&&TempData["Voucher"]!=null){
+								totalValue= ((int)ViewBag.total-(int)TempData["Voucher"]);
+							}
+							else if(ViewBag.total!=null)
+							{
+								totalValue = ViewBag.total;
+							}
+						}
+							<span>@totalValue</span>
+    					</p>
+    				</div>
+				<p><a href="/home/checkout?Discount=@TempData["Voucher"]&SubTotal=@ViewBag.total&Total=@ViewBag.total" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+    			</div>
+    		</div>
+			</div>
+		</section>

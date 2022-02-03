@@ -1,0 +1,128 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Food_Market.Data.Entity.Order
+<div class="hero-wrap hero-bread" style="background-image: url('/client/images/bg_1.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+				<h1 class="mb-0 bread">Checkout</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-10 ftco-animate">
+				<form asp-action='Checkout' class="billing-form">
+					<h3 class="mb-4 billing-heading">Billing Details</h3>
+					<div class="row align-items-end">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="firstname">First Name</label>
+								<input required type="text" asp-for='FirstName' class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="lastname">Last Name</label>
+								<input required type="text" asp-for='LastName' class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="country">State / Country</label>
+								<div class="select-wrap">
+									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+									<select asp-for='Country' class="form-control">
+										<option value="VN" selected="selected">VN</option>
+										<option value="China">China</option>
+										<option value="Japan">Japan</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="streetaddress">Street Address</label>
+								<input required asp-for='Address' type="text" class="form-control"
+									placeholder="House number and street name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input asp-for='Appartment' type="text" class="form-control"
+									placeholder="Appartment, suite, unit etc: (optional)">
+							</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="towncity">Town / City</label>
+								<input required asp-for='City' type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="streetaddress">Method Payment</label>
+								<select asp-for="Method" class='form-control'>
+												<option selected="selected">Payment on delivery</option>
+												<option>Paypal</option>
+											</select>
+							</div>
+						</div>
+						<div class="w-100"></div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								<input asp-for='Phone' type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="emailaddress">Email Address</label>
+								<input required asp-for='Email' type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<input type='hidden' value="@ViewBag.Checkout.Total" asp-for='Total' />
+						<div class="w-100"></div>
+					</div>
+					<div class="col-xl-5">
+						<div class="row mt-5 pt-3">
+							<div class="col-md-12 d-flex mb-5">
+								<div class="cart-detail cart-total p-3 p-md-4">
+									<h3 class="billing-heading mb-4">Cart Total</h3>
+									<p class="d-flex">
+										<span>Subtotal</span>
+										<span>$@ViewBag.Checkout.Subtotal</span>
+									</p>
+									<p class="d-flex">
+										<span>Discount</span>
+										<span>$@ViewBag.Checkout.Discount</span>
+									</p>
+									<hr>
+									<p class="d-flex total-price">
+										<span>Total</span>
+										<span>$@ViewBag.Checkout.Total</span>
+									</p>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="cart-detail p-3 p-md-4">
+									<p><button type='submit' class="btn btn-primary py-3 px-4">Place an order</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div> <!-- .col-md-8 -->
+				</form><!-- END -->
+			</div>
+
+		</div>
+	</div>
+</section> <!-- .section -->

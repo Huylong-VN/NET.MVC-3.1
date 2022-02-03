@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Update Product";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@model Food_Market.ViewModel.Product.ProductUpdate
+
+
+<div class="container-fluid">
+   <h1 class="mt-4">Update Product</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Product">Product</a></li>
+        <li class="breadcrumb-item active">Update Product</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Product">Back</a>
+        </div>
+      @if (TempData["errorr"] != null)
+{
+  <div class="alert alert-warning" role="alert">
+          @TempData["error"]
+        </div>  
+}
+        
+        <div class="card-body">
+            <div class="col-md-8">
+            <form asp-action="UpdateProduct" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                 <input asp-for="Name" class="form-control" required/>
+            </div>
+             <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Supplier</label>
+                <select asp-for="SupplierId" class='form-control'>
+                            @foreach(var supplier in ViewBag.listSupplier)
+                            {
+                                <option value='@supplier.Id'>@supplier.Name</option>
+                            }
+                </select>
+            </div>
+             <div class="form-group">
+                <label class="control-label">Category</label>
+                 <select asp-for="CategoryId" class='form-control'>
+                            @foreach(var cate in ViewBag.listCategory)
+                            {
+                                <option value='@cate.Id'>@cate.Name</option>
+                            }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" type='file' class="form-control" />
+            </div>
+              <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+            </div>
+      
+            <div class="form-group">
+                <label asp-for="SalePrice" class="control-label"></label>
+                <input asp-for="SalePrice" class="form-control" />
+            </div>
+      
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

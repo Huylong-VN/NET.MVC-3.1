@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "RoleAssign";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<style>
+    /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+
+<div class="container-fluid">
+    <h1 class="mt-4">Cập nhật Người dùng</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Cập nhật sản phẩm</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Index">Về danh sách</a>
+        </div>
+         <div class="alert alert-warning" role="alert">
+          @TempData["error"]
+        </div>
+        <div class="card-body">
+            <div class="col-md-8">
+<h3>Status</h3>
+             
+<form asp-action="RoleAssign" method='post'>
+    <input type='hidden' name="Id" value="@ViewBag.id" />
+     @if (ViewBag.status == true)
+        {
+           <label class="switch">
+            <input name='status' checked type="checkbox">
+            <span class="slider round"></span>
+            </label>
+              <button class='btn btn-primary ml-2' >Save</button>
+        }
+        else
+        {
+            <label class="switch">
+            <input name='status' type="checkbox">
+            <span class="slider round"></span>
+            </label>
+              <button class='btn btn-primary ml-2'>Save</button>
+        }
+          
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+

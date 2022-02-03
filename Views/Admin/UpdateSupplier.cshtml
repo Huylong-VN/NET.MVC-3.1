@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Update Category";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@model Food_Market.Data.Entity.Supplier
+
+
+<div class="container-fluid">
+   <h1 class="mt-4">Update Supplier</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Supplier">Supplier</a></li>
+        <li class="breadcrumb-item active">Update Supplier</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Supplier">Back</a>
+        </div>
+      @if (TempData["errorr"] != null)
+{
+  <div class="alert alert-warning" role="alert">
+          @TempData["error"]
+        </div>  
+}
+        
+        <div class="card-body">
+            <div class="col-md-8">
+            <form asp-action="UpdateSupplier" method='post'>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                 <input asp-for="Name" class="form-control" required/>
+            </div>
+             <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" required/>
+            </div>
+              <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

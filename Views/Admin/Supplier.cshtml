@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@model Food_Market.ViewModel.PagedResultBase
+@if (TempData["errorr"] != null)
+{
+  <div class="alert alert-warning" role="alert">
+          @TempData["error"]
+        </div>  
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Supplier</h6>
+        <a href="createSupplier" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-2"><i
+                                class="fas fa-plus-circle text-white-50"></i> Create Supplier</a>
+          <form class="float-right d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-1 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" asp-for="Keyword">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>SupplierName</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>CreateAt</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                    foreach(var data in ViewBag.List)
+                    {
+                    <tr>
+                        <td>@data.Id</td>
+                        <td>@data.Name</td>
+                        <td>@data.Address</td>
+                        <td>@data.Phone</td>
+                        <td>@data.CreatedAt</td>
+                        <td>
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline">Menu</span>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/admin/UpdateSupplier/@data.Id">Update</a>
+                                <a class="dropdown-item" href="/admin/DeleteSupplier/@data.Id">Delete</a>
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                    }
+                </tbody>
+            </table>
+            <paging 
+                total-records="Model.TotalRecords" 
+                page-no="Model.PageIndex"
+                max-displayed-pages="5"
+                page-size="Model.PageSize"
+            page-size-dropdown-items="5-15-30">
+            </paging>
+        </div>
+    </div>
+</div>
